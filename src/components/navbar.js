@@ -13,10 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import DataSaverOnOutlinedIcon from '@mui/icons-material/DataSaverOnOutlined';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import dateNiteStorage from '../utils/dateNiteStorage';
 
-const NavBar = () => {
+const pages = ['About'];
+
+
+const NavBar = ({saveDate}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -34,6 +36,8 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   return (
     <AppBar position="static">
@@ -105,8 +109,9 @@ const NavBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Saved Date Nite's">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                Saved Dates
               <DataSaverOnOutlinedIcon/>
               </IconButton>
             </Tooltip>
@@ -126,11 +131,14 @@ const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {dateNiteStorage.forEach(dateNite => {
+                <MenuItem key={dateNite} onClick={loadDate}>
+                  <Typography textAlign="center">{dateNite.name}</Typography>
+                </MenuItem>
+              })}
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
             </Menu>
           </Box>
         </Toolbar>

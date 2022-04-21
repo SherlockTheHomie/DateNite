@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -47,11 +46,17 @@ const theme = createTheme({
 
 
 function App() {
+
+
+
+const [saveDate, setSaveDate] = useState();
+const [loadDate, setLoadDate] = useState();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <NavBar></NavBar>
-    <Genny display="flex" justifyContent="center" alignItems="center"/>
+      <NavBar saveDate={saveDate}></NavBar>
+    <Genny display="flex" justifyContent="center" alignItems="center" setSaveDate={setSaveDate}/>
     </ThemeProvider>
   );
 }
